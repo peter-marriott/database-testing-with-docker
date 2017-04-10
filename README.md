@@ -1,4 +1,6 @@
-# Sample to show using docker to test different versions od a database
+# Sample to demonstrate testing code against different database images
+
+Using docker images we can test code against different database images held in a registry. For this demonstration local images are used instead.
 
 ```
 cd database_branch1
