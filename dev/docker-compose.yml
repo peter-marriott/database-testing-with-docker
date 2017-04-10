@@ -1,0 +1,23 @@
+version: "2"
+
+services:
+    database:
+      image: db:v1
+      ports:
+        - 5432:5432
+
+    website:
+      build: ../website
+      ports:
+        - 3000:3000
+      environment:
+        - PORT=3000
+        - APP_DB_HOST=database
+        - APP_DB_PORT=5432
+        - APP_DB_DATABASE=app_db
+        - APP_DB_READ_WRITE_USER=app_read_write
+        - APP_DB_READ_WRITE_PASSWORD=readwritepwd
+      volumes:
+        - ../website:/src
+      links:
+        - database:database
