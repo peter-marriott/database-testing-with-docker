@@ -28,10 +28,12 @@ def index():
         cur = conn.cursor()
         results_dict = {}
         try:
-            cur.execute("select a.attribute_name, a.attribute_description from reporting.attribute a order by a.display_order")
-            stats_lists = cur.fetchall()
-            print "Got {} rows".format(len(stats_lists))
-        except sycopg2.IntegrityError as ex:
+            # select customerid, createdat, surname, initials, firstname, title, postcode1, postcode2, dob, sex, email, passwd from reporting.customer order by surname, firstname
+            cur.execute("select customerid, customerreference, surname, initials, firstname, title, postcode1, postcode2, sex, email, passwd from reporting.customer order by surname, firstname")
+            customer_list = cur.fetchall()
+            print "Got {} rows".format(len(customer_list))
+
+        except psycopg2.IntegrityError as ex:
             print 'postgres_error: {}'.format(ex.message)
             conn.rollback()
             raise
@@ -46,7 +48,7 @@ def index():
             conn.close()
 
     results = {
-        'stats_lists': stats_lists
+        'customer_list': customer_list
     }
 
     response.content_type = 'application/json'
