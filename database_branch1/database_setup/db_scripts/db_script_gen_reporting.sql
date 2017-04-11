@@ -15,7 +15,6 @@ DROP TABLE IF EXISTS customer;
 
 CREATE TABLE customer (
   customerid serial not null primary key,
-  customerreference varchar(15) not null,
   createdat timestamp not null default current_timestamp,
   surname varchar(50) null,
   initials varchar(50) null,

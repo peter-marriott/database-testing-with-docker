@@ -753,9 +753,8 @@ INSERT INTO title_f_temp (title) VALUES ('Rev');
 INSERT INTO title_f_temp (title) VALUES ('Prof');
 
 insert into reporting.customer
-(customerreference,surname,initials,firstname,title,postcode1,postcode2,dob,sex,email,passwd)
+(surname,initials,firstname,title,postcode1,postcode2,dob,sex,email,passwd)
 select --top (@TotalCustomersPerSex)
-concat('AF', repeat('0',3), cast(ROW_NUMBER() over (order by f.forename) as varchar)) as CustomerReference,
 s.surname, 
 upper(substring(f.forename, 3,1)) as Initials, 
 f.forename, 
@@ -772,9 +771,8 @@ cross join surname_temp s
 order by s.surname limit :customer_gender_limit;
 
 insert into reporting.customer
-(customerreference,surname,initials,firstname,title,postcode1,postcode2,dob,sex,email,passwd)
+(surname,initials,firstname,title,postcode1,postcode2,dob,sex,email,passwd)
 select --top (@TotalCustomersPerSex)
-concat('AF', repeat('0',3), cast(ROW_NUMBER() over (order by f.forename) as varchar)) as CustomerReference,
 s.surname, 
 upper(substring(f.forename, 3,1)) as Initials, 
 f.forename, 
