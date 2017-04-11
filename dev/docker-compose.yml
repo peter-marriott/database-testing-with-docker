@@ -3,6 +3,8 @@ version: "2"
 services:
     database:
       image: db:v1
+      environment:
+        - DATA=100
       ports:
         - 5432:5432
 

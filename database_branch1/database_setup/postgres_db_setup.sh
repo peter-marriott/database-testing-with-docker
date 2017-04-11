@@ -12,3 +12,9 @@ psql --username "$POSTGRES_USER" -f $SCRIPT_DIR/db_scripts/application_roles_pub
 
 echo 'Creating reporting schema'
 psql --username "app_owner" -d app_db -f $SCRIPT_DIR/db_scripts/db_script_gen_reporting.sql
+
+if [ "$DATA" ]; then
+	psql --set=customer_gender_limit="$DATA" --username "app_owner" -d app_db -f $SCRIPT_DIR/db_scripts/gen_data.sql
+else
+	echo "No data loaded"
+fi  
