@@ -26,11 +26,12 @@ def index():
 
         print 'Connected'
         cur = conn.cursor()
-        results_dict = {}
         try:
-            # select customerid, createdat, surname, initials, firstname, title, postcode1, postcode2, dob, sex, email, passwd from reporting.customer order by surname, firstname
+            columns = ( 'customerid', 'customerreference', 'surname', 'initials', 'firstname', 'title', 'postcode1', 'postcode2', 'sex', 'email', 'passwd' )
             cur.execute("select customerid, customerreference, surname, initials, firstname, title, postcode1, postcode2, sex, email, passwd from reporting.customer order by surname, firstname")
-            customer_list = cur.fetchall()
+            customer_list = []
+            for row in cur.fetchall():
+                customer_list.append(dict(zip(columns, row)))
             print "Got {} rows".format(len(customer_list))
 
         except psycopg2.IntegrityError as ex:
